@@ -1,7 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
-#    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-#    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
-    RewriteCond %{REQUEST_URI} !^public
-    RewriteRule ^(.*)$ public/$1 [L]
+    RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
+    RewriteRule ^ %1 [L,NE,R=302]
+    RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
 </IfModule>

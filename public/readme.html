@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Тестовое задание на позицию PHP-разработчика</title>
+</head>
+<body>
+<div>
+  <h1>Тестовое задание на позицию PHP-разработчика</h1>
+  <h2>Задание</h2>
+  <h3>Начальные данные</h3>
+  <h5>1. Структура таблицы mysql</h5>
+  <ul>
+    <li>`services` - сервисы пользователей</li>
+    <li>`tarifs` - тарифы сервисов</li>
+    <li>Тарифы связываются между собой через параметр `tarif_group_id`</li>
+  </ul>
+  <h5>2. Файл с конфигом для доступа к БД - db_cfg.php</h5>
+  
+  <h3>Задача:  написать код, реализующий API-запросы</h3>
+  <ul>
+    <li>`GET /users/{user_id}/services/{service_id}/tarifs` - получает тарифы для конкретного сервиса.
+      Тарифы могут быть только с тем же самым tarif_group_id, что и у текущего тарифа сервиса.</li>
+    <li>`PUT /users/{user_id}/services/{service_id}/tarif`
+      Данные: `{"tarif_id": (ID тарифа из запроса на получениe тарифов)}`</li>
+  </ul>
+</div>
+</body>
+</html>
+

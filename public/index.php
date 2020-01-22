@@ -6,7 +6,7 @@
  * ||             DB_CONFIG AND AUTOLOAD              ||
  * =====================================================
  */
-include ROOT . '/config/config.php';
+include '../config/config.php';
 
 /*
  * =====================================================

@@ -29,7 +29,7 @@ class ServiceRepository extends AbstractRepository
     $user_id = $params['user_id'];
     $sql = "UPDATE " . $this->model->getTableName() . " SET tarif_id=:tarif_id, payday=:payday WHERE id=:service_id AND user_id=:user_id";
     $payday = $this->getPayday($data['tarif_id']);
-    $stmt = $this->model->db::instance()->prepare($sql);
+    $stmt = $this->model->db->prepare($sql);
     $stmt->bindValue(':tarif_id', $data['tarif_id']);
     $stmt->bindValue(':payday', $payday);
     $stmt->bindParam(':service_id', $service_id);
@@ -61,7 +61,7 @@ class ServiceRepository extends AbstractRepository
   protected function getTarif(int $user_id, int $service_id) :string
   {
     $sql = "SELECT tarif_id FROM services WHERE id=:id AND user_id=:user_id";
-    $stmt = $this->model->db::instance()->prepare($sql);
+    $stmt = $this->model->db->prepare($sql);
     $stmt->bindParam(':id', $service_id);
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
@@ -81,7 +81,7 @@ class ServiceRepository extends AbstractRepository
   protected function getPayday(int $tarifId) :string
   {
     $sql = "SELECT pay_period FROM tarifs WHERE id=:id";
-    $stmt = $this->model->db::instance()->prepare($sql);
+    $stmt = $this->model->db->prepare($sql);
     $stmt->bindValue(':id', $tarifId);
     $stmt->execute();
     $row = $stmt->fetch(\PDO::FETCH_OBJ);

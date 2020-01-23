@@ -39,7 +39,7 @@ abstract class AbstractRepository
   public function get() :array
   {
     $sql = "SELECT * FROM " . $this->model->getTableName();
-    $stmt = $this->model->db::instance()->prepare($sql);
+    $stmt = $this->model->db->prepare($sql);
     $stmt->execute();
     $res = $stmt->fetchAll(\PDO::FETCH_OBJ);
     if($res){
@@ -59,7 +59,7 @@ abstract class AbstractRepository
   {
     $val = $params[$column];
     $sql = "SELECT * FROM " . $this->model->getTableName() . " WHERE " . $column . '=:' . $column;
-    $stmt = $this->model->db::instance()->prepare($sql);
+    $stmt = $this->model->db->prepare($sql);
     $stmt->bindParam(":".$column, $val);
     $stmt->execute();
     $res = $stmt->fetch(\PDO::FETCH_OBJ);
@@ -103,7 +103,7 @@ abstract class AbstractRepository
   public function delete(array $params) :bool
   {
     $sql = "DELETE FROM " . $this->model->getTableName() . " WHERE id=:id";
-    $stmt = $this->model->db::instance()->prepare($sql);
+    $stmt = $this->model->db->prepare($sql);
     $stmt->bindParam(':id', $params['id'], \PDO::PARAM_INT);
     return $stmt->execute();
   }
@@ -117,7 +117,7 @@ abstract class AbstractRepository
    */
   protected function do(string $sql, array $data, ?array $params = null) :bool
   {
-    $stmt = $this->model->db::instance()->prepare($sql);
+    $stmt = $this->model->db->prepare($sql);
 
     foreach ($data as $k => $v){
       $stmt->bindValue(':'.$k, $v,\PDO::PARAM_STR);

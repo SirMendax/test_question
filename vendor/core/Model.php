@@ -3,6 +3,8 @@
 
 namespace core;
 
+use PDO;
+
 /**
  * Class Model
  * @package core
@@ -10,16 +12,16 @@ namespace core;
 abstract class Model
 {
   /**
-   * @var DB
+   * @var PDO
    */
-  public DB $db;
+  public PDO $db;
 
   /**
    * Model constructor.
    */
   public function __construct()
   {
-    $this->db = new DB(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
+    $this->db = DB::instance()->start();
   }
 
   /**

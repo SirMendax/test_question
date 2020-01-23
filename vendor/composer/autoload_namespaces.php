@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'OAuth2' => array($vendorDir . '/bshaffer/oauth2-server-php/src'),
     'Flow\\JSONPath\\Test' => array($vendorDir . '/flow/jsonpath/tests'),
     'Flow\\JSONPath' => array($vendorDir . '/flow/jsonpath/src'),
     'Behat\\Gherkin' => array($vendorDir . '/behat/gherkin/src'),

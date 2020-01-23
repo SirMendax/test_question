@@ -31,7 +31,7 @@ class TarifRepository extends AbstractRepository
     $tarif_group_id = $this->getGroupId($this->getTarifId($params['user_id'], $params['service_id']));
     $sql = "SELECT $columns FROM " . $this->model->getTableName() . " WHERE tarif_group_id=:tarif_group_id";
 
-    $stmt = $this->model->db::instance()->prepare($sql);
+    $stmt = $this->model->db->prepare($sql);
     $stmt->bindParam(':tarif_group_id', $tarif_group_id);
     $stmt->execute();
     $raw = $stmt->fetchAll(\PDO::FETCH_OBJ);
@@ -64,7 +64,7 @@ class TarifRepository extends AbstractRepository
     $tarif_id = $this->getTarifId($params['user_id'], $params['service_id']);
     $values = implode(", ", array_map(fn($key) => $key .'=:' . $key, array_keys($data)));
     $sql = "UPDATE tarifs SET $values WHERE id=:id";
-    $stmt = $this->model->db::instance()->prepare($sql);
+    $stmt = $this->model->db->prepare($sql);
     foreach ($data as $k => $v){
       $stmt->bindParam(':'.$k, $v);
     }
@@ -79,7 +79,7 @@ class TarifRepository extends AbstractRepository
   protected function getGroupId(int $tarif_id) :int
   {
     $sql = "SELECT tarif_group_id FROM tarifs WHERE id=:id";
-    $stmt = $this->model->db::instance()->prepare($sql);
+    $stmt = $this->model->db->prepare($sql);
     $stmt->bindParam(':id', $tarif_id);
     $stmt->execute();
     $raw = $stmt->fetch(\PDO::FETCH_OBJ);
@@ -95,7 +95,7 @@ class TarifRepository extends AbstractRepository
   protected function getTarifId(int $user_id, int $service_id) :int
   {
     $sql = "SELECT tarif_id FROM services WHERE id=:id AND user_id=:user_id";
-    $stmt = $this->model->db::instance()->prepare($sql);
+    $stmt = $this->model->db->prepare($sql);
     $stmt->bindParam(':id', $service_id);
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();

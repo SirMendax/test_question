@@ -194,6 +194,13 @@ class ComposerStaticInit58900de2915ea2f4a87e9bb3b13fe441
     );
 
     public static $prefixesPsr0 = array (
+        'O' => 
+        array (
+            'OAuth2' => 
+            array (
+                0 => __DIR__ . '/..' . '/bshaffer/oauth2-server-php/src',
+            ),
+        ),
         'F' => 
         array (
             'Flow\\JSONPath\\Test' => 

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace core;
+namespace core\Http;
 
 use core\helpers\ResponseStatus;
 
@@ -9,7 +9,7 @@ use core\helpers\ResponseStatus;
  * Class Response
  * @package core
  */
-class Response
+final class Response
 {
   /**
    * @var array
@@ -31,12 +31,17 @@ class Response
    */
   protected $content;
 
+  private static ?Response $instance = null;
+
   /**
    * Response constructor.
    */
-  public function __construct()
+  private function __construct()
   {
     $this->setVersion('1.1');
+    $this->setHeader('Access-Control-Allow-Origin: *');
+    $this->setHeader("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+    $this->setHeader('Content-Type: application/json; charset=UTF-8');
     $this->status = ResponseStatus::getStatus();
   }
 
@@ -60,7 +65,7 @@ class Response
   /**
    * @param $header
    */
-  public function setHeader(String $header) :void
+  public function setHeader(string $header) :void
   {
     $this->headers[] = $header;
   }
@@ -120,5 +125,17 @@ class Response
 
     return $this;
   }
+
+  public static function instance()
+  {
+    if(self::$instance === null)
+    {
+      self::$instance = new self;
+    }
+    return self::$instance;
+  }
+
+  private function __clone(){}
+  private function __wakeup(){}
 
 }

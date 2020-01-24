@@ -1,49 +1,9 @@
 <?php
-/*
- * =====================================================
- * ||            Include base app config              ||
- * ||            CONST DEBUG AND INCLUDE              ||
- * ||             DB_CONFIG AND AUTOLOAD              ||
- * =====================================================
- */
-include '../config/config.php';
 
-/*
- * =====================================================
- * ||      Initialization foundamental CLASSES:       ||
- * ||    REQUEST, RESPONSE AND EXCEPTION HANDLER      ||
- * =====================================================
- */
-$request = new \core\Request();
-$response = new \core\Response();
-$handler = new \src\Http\Handler\HandlerException();
+use core\App;
 
-/*
- * =====================================================
- * ||        Added base header for response           ||
- * =====================================================
- */
-$response->setHeader('Access-Control-Allow-Origin: *');
-$response->setHeader("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-$response->setHeader('Content-Type: application/json; charset=UTF-8');
+require_once "../config/base_constant.php";
+require_once CONF . "/app.php";
+require_once CONF . "/db_config.php";
 
-/*
- * =====================================================
- * ||        Initialization routing system            ||
- * =====================================================
- */
-$router = new \core\Router($request->getUrl(), $request->getMethod());
-
-/*
- * =====================================================
- * ||        Include files with all routes API        ||
- * =====================================================
- */
-require ROOT . '/routes/routes.php';
-
-/*
- * =====================================================
- * ||             Launch routing system               ||
- * =====================================================
- */
-$router->run();
+new App();

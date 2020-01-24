@@ -2,9 +2,8 @@
 
 namespace src\Models;
 
-use core\Model;
-use core\helpers\DateHelper;
-use Exception;
+use core\AbstractClasses\Model;
+
 
 /**
  * Class Service

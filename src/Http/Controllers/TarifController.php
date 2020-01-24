@@ -4,7 +4,7 @@
 namespace src\Http\Controllers;
 
 
-use core\Controller;
+use core\AbstractClasses\Controller;
 use Exception;
 use src\Repositories\TarifRepository;
 

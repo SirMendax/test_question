@@ -2,7 +2,7 @@
 
 namespace src\Repositories;
 
-use core\Model;
+use core\AbstractClasses\Model;
 use Exception;
 
 /**

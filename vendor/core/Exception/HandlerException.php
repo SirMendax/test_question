@@ -1,7 +1,7 @@
 <?php
-namespace src\Http\Handler;
-use core\Request;
-use core\Response;
+namespace core\Exception;
+use core\Http\Request;
+use core\Http\Response;
 use Exception;
 
 /**
@@ -23,10 +23,10 @@ class HandlerException
   /**
    * HandlerException constructor.
    */
-  public function __construct()
+  public function __construct(Request $request, Response $response)
   {
-    $this->request = $GLOBALS['request'];
-    $this->response = $GLOBALS['response'];
+    $this->request = $request;
+    $this->response = $response;
     if(DEBUG === true){
       error_reporting(-1);
     }else{
@@ -36,9 +36,9 @@ class HandlerException
   }
 
   /**
-   * @param Exception $error
+   * @param $error
    */
-  public function exceptionHandler(Exception $error)
+  public function exceptionHandler($error)
   {
     $this->log($error->getMessage(), $error->getFile(), $error->getLine());
     $this->show($error->getMessage(), $error->getCode());

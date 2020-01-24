@@ -1,7 +1,7 @@
 <?php
 
 
-namespace core;
+namespace core\Router;
 
 
 use Exception;

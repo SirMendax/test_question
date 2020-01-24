@@ -2,9 +2,8 @@
 
 namespace src\Http\Controllers;
 
-use core\Controller;
+use core\AbstractClasses\Controller;
 use Exception;
-use src\Models\User;
 use src\Repositories\UserRepository;
 
 class UserController extends Controller

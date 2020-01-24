@@ -1,9 +1,10 @@
 <?php
 
 
-namespace core;
+namespace core\AbstractClasses;
 
 use PDO;
+use core\DB\DB;
 
 /**
  * Class Model

@@ -1,23 +1,25 @@
 <?php
 
-namespace core;
+namespace core\Http;
 
 /**
  * Class Request
  * @package core
  */
 
-class Request {
+final class Request {
 
   /**
    * @var array
    */
   public array $request;
 
+  private static ?Request $instance = null;
+
   /**
    * Request constructor.
    */
-  public function __construct()
+  private function __construct()
   {
     $this->request = $_REQUEST;
   }
@@ -76,4 +78,16 @@ class Request {
     }
     return $data;
   }
+
+  public static function instance()
+  {
+    if(self::$instance === null)
+    {
+      self::$instance = new self;
+    }
+    return self::$instance;
+  }
+
+  private function __clone(){}
+  private function __wakeup(){}
 }

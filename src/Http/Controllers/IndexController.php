@@ -3,7 +3,7 @@
 
 namespace src\Http\Controllers;
 
-use core\Controller;
+use core\AbstractClasses\Controller;
 
 /**
  * Class IndexController

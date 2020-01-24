@@ -1,9 +1,11 @@
 <?php
 
 
-namespace core;
+namespace core\Router;
 
 
+use core\Http\Request;
+use core\Http\Response;
 use Exception;
 
 /**
@@ -37,15 +39,14 @@ class Router
    */
   private array $params = [];
 
-
   /**
    * @param string $url
    * @param string $httpMethod
    */
-  public function __construct(string $url, string $httpMethod)
+  public function __construct(Request $request)
   {
-    $this->url = rtrim($url, '/');
-    $this->httpMethod = $httpMethod;
+    $this->url = rtrim($request->getUrl(), '/');
+    $this->httpMethod = $request->getMethod();
   }
 
   /**
@@ -149,36 +150,39 @@ class Router
   /**
    * @throws Exception
    */
-  public function run() :void
+  public function run(Request $request, Response $response)
   {
     $this->getMatchRoutersByRequestMethod();
     $this->getMatchRoutersByPattern($this->matchRouter);
     if (!$this->matchRouter || empty($this->matchRouter)) {
-      throw new \Exception("Route not found", 404);
+      throw new Exception("Route not found", 404);
     } else {
-      $this->runController($this->matchRouter[0]->getMethod());
+      return $this->getController($this->matchRouter[0]->getMethod(), $request, $response);
     }
   }
 
   /**
    * @param string $controller
    */
-  private function runController(string $controller) :void
+  private function getController(string $controller, Request $request, Response $response) :void
   {
 
     $arrWithController = explode('@', $controller);
 
     $controller = 'src\\Http\\Controllers\\' . $arrWithController[0];
 
-    if(class_exists($controller)){
-      $controller = new $controller();
+    if(!class_exists($controller)){
+      throw new Exception('Controller not found', 404);
     }
-
+    $controller = new $controller($request, $response);
     $method = $arrWithController[1];
 
-    if (method_exists($controller, $method)) {
-      $controller->$method($this->params);
+    if (!method_exists($controller, $method)) {
+      throw new Exception('Action not found', 404);
     }
+
+    $controller->$method($this->params);
+
   }
 
 

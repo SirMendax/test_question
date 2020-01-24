@@ -14,7 +14,7 @@ class ServiceValidator
 {
   /**
    * @param array|null $data
-   * @param Tarif $tarif
+   * @param TarifRepository $tarif
    * @return bool
    * @throws Exception
    */

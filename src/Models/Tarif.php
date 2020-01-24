@@ -4,7 +4,7 @@
 namespace src\Models;
 
 
-use core\Model;
+use core\AbstractClasses\Model;
 
 /**
  * Class Tarif
